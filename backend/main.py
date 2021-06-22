@@ -1,5 +1,5 @@
 import pymongo
-from db import mongoDB
+from db import dbConn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -14,12 +14,15 @@ origins = [
 ]
 
 
-class Item(BaseModel):
+class insertDataModel(BaseModel):
     fname: str
     lname: str
     password: str
     email: str
 
+class getDataModel(BaseModel):
+    password: str
+    email: str
 
 app.add_middleware(
     CORSMiddleware,
@@ -30,20 +33,14 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-async def read_root():
-    print("hehe")
-    return {"fname": "T",
-            "lname": "H",
-            "imp": {
-                "password": "1234",
-                "email": "h@gmail.com"
-            }
+@app.get("/find/{id}")
+async def read_root(item_id: getDataModel):
+    db.find_one(item_id)
 
-            }
 
 
 @app.post("/insData")
-async def ins_data(data):
-    mongoDB.insert_data(data)
-    return True
+async def ins_data(item: insertDataModel):
+    db.insert_one(item)
+
+
