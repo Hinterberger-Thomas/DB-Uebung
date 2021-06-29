@@ -17,7 +17,7 @@ function Login() {
         login = await getData(nameRef.current?.value, passwordRef.current?.value);
 
         if (login) {
-            
+
             dispatch(setEmail(nameRef.current?.value));
             history.push("/overview");
         }
@@ -27,12 +27,15 @@ function Login() {
     return (
         <div>
             <h4 className="display-4">Name</h4>
-            <input className = "form-control" ref={nameRef} placeholder="name"></input>
-            <h4 className = "display-4">Password</h4>
-            <input className = "form-control" type = "password"ref={passwordRef} placeholder="password"></input>
+            <input className="form-control" ref={nameRef} placeholder="name"></input>
+            <h4 className="display-4">Password</h4>
+            <input className="form-control" type="password" ref={passwordRef} placeholder="password"></input>
             <br />
-            <button className = "btn btn-primary" onClick={handleMouseEvent}>safe</button>
-            <Link className = "link-primary" to="/register">Register</Link>
+            <button className="btn btn-primary" onClick={handleMouseEvent}>safe</button>
+            <Link className="link-primary" to="/register">Register</Link>
+            <div className ="px-4 pb-2 pt-4">
+                <button className ="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">sign in</button>
+            </div>
         </div>
     )
 }
